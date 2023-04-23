@@ -36,6 +36,13 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
       </activity>
-      <activity android:name="com.reactnativejitsimeet.JitsiMeetNavigatorActivity" android:exported="true"/>
+      <activity
+        android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize"
+        android:launchMode="singleTask"
+        android:resizeableActivity="true"
+        android:supportsPictureInPicture="true"
+        android:windowSoftInputMode="adjustResize"
+        android:name="com.reactnativejitsimeet.JitsiMeetActivityExtended">
+      </activity>
     </application>
 </manifest>

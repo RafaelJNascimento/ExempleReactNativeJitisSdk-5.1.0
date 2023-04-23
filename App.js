@@ -7,50 +7,70 @@ import {
     SafeAreaView,
     TextInput,
     TouchableOpacity,
-    PermissionsAndroid,
 } from 'react-native';
+import JitsiMeet, { JitsiMeetView } from '@vidit-me/react-native-jitsi-meet';
 
-import Jitsi from './jitsi';
-
-const teste = () => {
+const ExempleReactNativeJitsiMeet = () => {
 
     const [joinMeeting, setJoinMeeting] = useState(false);
-    const [url, setURL] = useState('https://meet.jit.si/rafaelTesteJitsi');
+    const [room, setRoom] = useState('rafaelTesteJitsi');
     const [name, setName] = useState('rafael');
     const [email, setEmail] = useState('rafael@gmail.com');
 
-    const requestPermission = async () => {
-        await PermissionsAndroid.request(
-            PermissionsAndroid.PERMISSIONS.CAMERA,
-            {
-                title: "App Permissão de Câmera",
-                message: "O App precisa de acesso à câmera.",
-                buttonNeutral: "Pergunte-me depois",
-                buttonNegative: "Cancelar",
-                buttonPositive: "OK"
-            }
-        );
-        await PermissionsAndroid.request(
-            PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
-            {
-                title: "App Permissão de gravar audio",
-                message: "O App precisa de acesso para gravar audio.",
-                buttonNeutral: "Pergunte-me depois",
-                buttonNegative: "Cancelar",
-                buttonPositive: "OK"
-            }
-        );
-        await PermissionsAndroid.request(
-            PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-            {
-                title: "App Permissão de acesso a arquivos",
-                message: "O App precisa de acesso ao arquivos",
-                buttonNeutral: "Pergunte-me depois",
-                buttonNegative: "Cancelar",
-                buttonPositive: "OK"
-            }
-        );
-    };
+    const startJitsiAsNativeController = async (controller) => {
+        if (controller) {
+            await JitsiMeet.launchJitsiMeetView({
+                room,
+                serverUrl: `https://meet.jit.si/${room}`,
+                userInfo: {
+                    name,
+                    email
+                },
+                options: {
+                    audioMuted: false,
+                    audioOnly: false,
+                    videoMuted: false
+                },
+                meetFeatureFlags: {
+                    addPeopleEnabled: true,
+                    calendarEnabled: true,
+                    callIntegrationEnabled: true,
+                    chatEnabled: true,
+                    closeCaptionsEnabled: true,
+                    inviteEnabled: true,
+                    androidScreenSharingEnabled: true,
+                    liveStreamingEnabled: true,
+                    meetingNameEnabled: true,
+                    meetingPasswordEnabled: true,
+                    pipEnabled: true,
+                    kickOutEnabled: true,
+                    conferenceTimerEnabled: true,
+                    videoShareButtonEnabled: true,
+                    recordingEnabled: true,
+                    reactionsEnabled: true,
+                    raiseHandEnabled: true,
+                    tileViewEnabled: true,
+                    toolboxAlwaysVisible: false,
+                    toolboxEnabled: true,
+                    welcomePageEnabled: false,
+                },
+            });
+        }
+    }
+
+    const viewJitsi = () => <JitsiMeetView
+        onConferenceTerminated={e => {
+            console.log('terminou')
+            setJoinMeeting(false)
+        }}
+        onConferenceJoined={() => {
+            console.log('entrou')
+        }}
+        onConferenceWillJoin={() => {
+            
+        }}
+        style={styles.container}
+    />
 
     return (
         <SafeAreaView
@@ -59,18 +79,9 @@ const teste = () => {
                 animated={true}
                 backgroundColor="#000"
                 barStyle={'light-content'} />
-            <View style={styles.body}>
-                {
-                    joinMeeting
-                        && url.length > 0
-                        && name.length > 0
-                        && email.length > 0 ?
-                        <Jitsi
-                            url={url}
-                            name={name}
-                            email={email}
-                        />
-                        :
+            {
+                !joinMeeting ?
+                    <View style={styles.body}>
                         <View
                             style={{
                                 flex: 1,
@@ -82,9 +93,9 @@ const teste = () => {
                         >
                             <TextInput
                                 style={styles.input}
-                                onChangeText={setURL}
-                                placeholder={'insira a url'}
-                                value={url}
+                                onChangeText={setRoom}
+                                placeholder={'insira o nome da sala'}
+                                value={room}
                             />
                             <TextInput
                                 style={styles.input}
@@ -99,18 +110,16 @@ const teste = () => {
                                 value={email}
                             />
                             <TouchableOpacity
-                                onPress={() => requestPermission()}
-                                style={styles.button}>
-                                <Text>Solicitar Permissões</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                onPress={() => setJoinMeeting(true)}
+                                onPress={() => {
+                                    setJoinMeeting(true);
+                                    startJitsiAsNativeController(true);
+                                }}
                                 style={styles.button}>
                                 <Text>Abrir chamada de vídeo</Text>
                             </TouchableOpacity>
                         </View>
-                }
-            </View>
+                    </View> : viewJitsi()
+            }
         </SafeAreaView>
     );
 }
@@ -143,4 +152,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default teste;
+export default ExempleReactNativeJitsiMeet;

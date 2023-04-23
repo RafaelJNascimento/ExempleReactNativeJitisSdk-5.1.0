@@ -1482,6 +1482,11 @@
   dependencies:
     eslint-visitor-keys "^1.1.0"
 
+"@vidit-me/react-native-jitsi-meet@^2.4.1":
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/@vidit-me/react-native-jitsi-meet/-/react-native-jitsi-meet-2.4.1.tgz#a0f9189a5dda760b4fda0e1490ec8c488d53d453"
+  integrity sha512-2lLEpPE65IyUpqYHgrQ/kdzHsDXCC7szp1gUqgfffmzKzywANtVGHdbmhVedeWXLM6ALSMN357lfkmiZCkqGdA==
+
 abab@^2.0.3, abab@^2.0.5:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/abab/-/abab-2.0.6.tgz#41b80f2c871d19686216b82309231cfd3cb3d291"
@@ -5595,11 +5600,6 @@ react-native-gradle-plugin@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/react-native-gradle-plugin/-/react-native-gradle-plugin-0.0.6.tgz#b61a9234ad2f61430937911003cddd7e15c72b45"
   integrity sha512-eIlgtsmDp1jLC24dRn43hB3kEcZVqx6DUQbR0N1ABXGnMEafm9I3V3dUUeD1vh+Dy5WqijSoEwLNUPLgu5zDMg==
-
-react-native-jitsi-meet@^2.3.1:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/react-native-jitsi-meet/-/react-native-jitsi-meet-2.3.1.tgz#53b4bca23d57b926129b271b2cbedb9631e7a963"
-  integrity sha512-NIrDlwek/2UulRmXeHMpxwtJw/BEq9RdwE1C3ElMHOsG9EleqJtHaxUrIN/KaNDBnvNetxYWFHZD6wQov0cJBQ==
 
 react-native@0.68.1:
   version "0.68.1"
